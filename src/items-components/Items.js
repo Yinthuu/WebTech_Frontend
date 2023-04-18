@@ -10,6 +10,7 @@ const Items = () => {
   const userId = sessionStorage.getItem('userId');
 
   const handleClick = (item) => {
+    console.log("handleClick"+item)
     if (cart.indexOf(item) !== -1) return;//If item is alredy present it wont enter
     setCart([...cart, item]);//or else item will be added to the cart
   };
@@ -63,9 +64,16 @@ const Items = () => {
   useEffect(() => {
     const fetchCartSize = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/carts/user/${userId}`);
-        const data = await response.json();
-        setCartSize(data.length);
+        if(!userId){
+          //if anymonus users
+          const response = await fetch(`http://localhost:8081/guestcarts`);
+          const data = await response.json();
+          setCartSize(data.length)        
+        }else{
+          const response = await fetch(`http://localhost:8081/carts/user/${userId}`);
+          const data = await response.json();
+          setCartSize(data.length);
+        }
       } catch (error) {
         console.error(error);
       }

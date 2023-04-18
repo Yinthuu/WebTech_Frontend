@@ -35,6 +35,16 @@ const ItemCart = ({ handleChange }) => {
   };
 
   useEffect(() => {
+    if(!userId){
+    // make GET request to API and update cart state
+    fetch(`http://localhost:8081/guestcarts`) 
+      .then((res) => res.json())
+      .then((data) => {
+        setCart(data);
+        console.log("anynymous: "+data[0].products.title);
+      })
+      .catch((err) => console.log(err));
+    }else{
     // make GET request to API and update cart state
     fetch(`http://localhost:8081/carts/user/${userId}`) // use userId in API URL
       .then((res) => res.json())
@@ -42,6 +52,8 @@ const ItemCart = ({ handleChange }) => {
         setCart(data);
       })
       .catch((err) => console.log(err));
+    }
+
   }, [userId]); // add userId as a dependency of the useEffect hook
 
   useEffect(() => {

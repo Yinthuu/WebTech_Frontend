@@ -10,7 +10,8 @@ function NavbarMenu() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    sessionStorage.removeItem('username');
+    //sessionStorage.removeItem('username');
+    sessionStorage.clear();
     window.location.reload();
     navigate('/');
   };

@@ -5,24 +5,44 @@ const ItemCards = ({ item, handleClick }) => {
   const { _id, title, description, pricing, image } = item;
 
   const handleAddToCart = async () => {
-    const user = sessionStorage.getItem('userId');
+    let user = sessionStorage.getItem('userId');
+
     const response = await fetch(`http://localhost:8081/products/${_id}`);
     const data = await response.json();
     const products = [data._id];
     const quantities = 1;
 
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ products, quantities, user })
-    };
+    if (!user) {
+      //for anynomyous user
+      console.log("guest users");
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ products, quantities })
+        };
+  
+        fetch('http://localhost:8081/guestcarts', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          console.log('Guest Cart item added successfully!');
+        });
 
-    fetch('http://localhost:8081/carts', requestOptions)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      console.log('Cart item added successfully!');
-  });
+    }else{
+
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ products, quantities, user })
+      };
+  
+      fetch('http://localhost:8081/carts', requestOptions)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        console.log('Cart item added successfully!');
+    });
+    }
 }
 
   return (
