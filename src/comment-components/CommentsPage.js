@@ -10,12 +10,12 @@ import GiveComment from './GiveComment';
 import NavbarMenu from '../navbar-components/NavbarMenu';
 import { useState, useEffect } from 'react';
 
-function CommentsPage( ) {
+function CommentsPage() {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [comments, setComments] = useState([]);
-  const [users, setUsers] = useState([]);
   const [showCommentSection, setShowCommentSection] = useState(false);
+  const userId = sessionStorage.getItem('userId');
 
   useEffect(() => {
     // Fetch product data
@@ -23,68 +23,66 @@ function CommentsPage( ) {
       .then((response) => response.json())
       .then((data) => setProduct(data))
       .catch((error) => console.error(error));
-    
-    // Fetch comments data
-    // fetch(`http://localhost:8081/comments/product/${id}`)
-    //   .then((response) => response.json())
-    //   .then((data) => setComments(data))
-    //   .catch((error) => console.error(error));
-  // Fetch comments data
-  fetch(`http://localhost:8081/comments/product/${id}`)
-    .then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      } else {
-        throw new Error('Failed to fetch comments');
-      }
-    })
-    .then((data) => {
-      if (data.length > 0) {
-        setShowCommentSection(true);
-        setComments(data);
-      }
-    })
-    .catch((error) => console.error(error));
-    
+    // Fetch comments data by product 
+    fetch(`http://localhost:8081/comments/product/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Failed to fetch comments');
+        }
+      })
+      .then((data) => {
+        if (data.length > 0) {
+          setComments(data);
+          setShowCommentSection(true);
+          //const users = data.map((comment) => comment.user._id);
+
+          // Check if user is a buyer for current product
+          if (isUserBuy( )) {
+            setShowCommentSection(true);
+          } else {
+            setShowCommentSection(false);
+          }
+        }
+      })
+      .catch((error) => console.error(error));
   }, [id]);
 
-  useEffect(() => {
-    // Extract list of users from comments
-    const users = comments.map(comment => comment.user._id);
-    // Set the users state variable
-    setUsers(users);
-    // Check if user is a buyer
-    if (isUserBuy(users)) {
-      setShowCommentSection(true);
-    }
-  }, [comments]);
-  
-
-  function isUserBuy(list) {
-    return list.some((element) => element  === '643458986cb3c592fea2b271');
+  function isUserBuy( ) {
+    //If userId and product Id found in order --> show give comment
+    fetch(`http://localhost:8081/orders/userproduct/${userId}/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          console.log('order found');
+          setShowCommentSection(true);
+          return true;
+        } else if (response.status === 404) {
+          console.log('order not found');
+          setShowCommentSection(false);
+          return false;
+        } else {
+          throw new Error('Failed to fetch comments');
+        }
+      })
+      .catch((error) => console.error(error));
   }
 
   return (
     <Container>
-      {/* Product info */}
       <h1>{product.title}</h1>
       <Row>
-        <Col> 
+        <Col>
           <div className="image_box">
             <img src={product.image} alt={product.title} />
-          </div> 
+          </div>
         </Col>
-
-        {/* All comments for a product/item */}
         <Col>
-          {showCommentSection && <GiveComment  product={product._id} />}
+          {showCommentSection && <GiveComment product={product._id} />}
         </Col>
       </Row>
-
       <hr />
-
       <h3>Customer Reviews</h3>
-
       {comments.map((comment) => (
         <Row>
           <CommentCard data={comment} />
