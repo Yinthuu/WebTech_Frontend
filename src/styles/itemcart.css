@@ -75,3 +75,21 @@
     color: green;
     font-weight: bold;
   }
+
+  .checkout-btn {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    border: none;
+    outline: none;
+    color: white;
+    background-color: skyblue;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;;
+  }
+  
+  .checkout-btn:hover {
+    background-color: darkseagreen;
+  }

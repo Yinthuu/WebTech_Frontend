@@ -7,7 +7,7 @@
     margin: auto;
     margin-top: 5%;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
   }
   .cards {
@@ -18,13 +18,16 @@
     box-shadow: 0 10px 10px 10px rbga(0, 0, 0, 0.1);
     cursor: pointer;
   }
-  .image_box img {
-    width: 150px;
-    height: 200px;
+  /* .image_box img {
+    width: 200px;
+    height: 250px;
+  } */
+  .image_box{
+    width: 200px;
+    height: 250px;
   }
-  
-  .image_box img {
-    width: 150px;
+  img {
+    width: 170px;
     height: 200px;
   }
   .details p:nth-child(1) {

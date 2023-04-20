@@ -71,14 +71,12 @@ function CommentsPage( ) {
       <Row>
         <Col> 
           <div className="image_box">
-            {/* <img src={product.image} alt="" /> */}
-            <img src="" alt="" />
+            <img src={product.image} alt={product.title} />
           </div> 
         </Col>
 
         {/* All comments for a product/item */}
         <Col>
-          ----------- {product._id}
           {showCommentSection && <GiveComment  product={product._id} />}
         </Col>
       </Row>

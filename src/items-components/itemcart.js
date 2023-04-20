@@ -7,7 +7,33 @@ const ItemCart = ({ handleChange }) => {
   const userId = sessionStorage.getItem('userId'); // get user id from sessionStorage
 
   const handleRemove = (id) => {
-    fetch(`http://localhost:8081/carts/user/${userId}`)
+    if(!userId){
+      //Guest User
+      console.log("Guest User: "+{id})
+
+      // make DELETE request to remove the cart item with the given id
+      fetch(`http://localhost:8081/guestcarts/${id}`, {
+        method: 'DELETE',
+      })
+        .then(response => {
+          if (response.ok) {
+            console.log(`Cart with ID ${id} has been deleted successfully.`);
+            // Do something else after deleting the cart
+            const arr = cart.filter((item) => item._id !== id);
+            setCart(arr);
+            handlePrice();
+          } else {
+            console.error(`Failed to delete cart with ID ${id}.`);
+          }
+        })
+        .catch(error => {
+          console.error('An error occurred while deleting the cart:', error);
+        });
+
+
+    }
+    else{
+      fetch(`http://localhost:8081/carts/user/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         // find the cart item with the given id
@@ -25,6 +51,8 @@ const ItemCart = ({ handleChange }) => {
           .catch((err) => console.log(err));
       })
       .catch((err) => console.log(err));
+    }
+
   };
   
 
@@ -82,6 +110,7 @@ const ItemCart = ({ handleChange }) => {
       <div className="total">
         <span>Total Price of your Cart</span>
         <span>$ {price}</span>
+        <button className="checkout-btn">Checkout</button>
       </div>
     </article>
   );

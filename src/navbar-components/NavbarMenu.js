@@ -24,7 +24,7 @@ function NavbarMenu() {
   return (
     <Navbar bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand href="/">ROB's Store</Navbar.Brand>
+        <Navbar.Brand href="/">Stop Shop</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/order">Order</Nav.Link>
           {username ? (

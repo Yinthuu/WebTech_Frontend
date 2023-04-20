@@ -48,7 +48,7 @@ const ItemCards = ({ item, handleClick }) => {
   return (
     <div className="cards">
       <div className="image_box">
-        <img src={image} alt="" />
+        <img src={image} alt={title} />
       </div>
       <div className="details">
         <p>{title}</p>

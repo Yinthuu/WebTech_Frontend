@@ -6,7 +6,6 @@ function GiveComment({product}) {
   return (
     <Container>
       <h3>Give Review</h3>
-      <br></br>============= {product}
     <GiveCommentCard product={product} />
     </Container>
   );

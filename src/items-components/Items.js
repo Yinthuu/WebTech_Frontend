@@ -28,11 +28,6 @@ const Items = () => {
     //const ind = cart.indexOf(item);
     const ind = item;
     const arr = cart;
-    console.log(item)
-
-    console.log(ind)
-    console.log(arr)
-    console.log(d)
 
     ind.quantities += d; // update item quantity in cart
   
@@ -42,22 +37,43 @@ const Items = () => {
     // make PATCH request to update item quantity in database
     //const cartId = cart[0].cart;
     const cartId = ind._id;
-    console.log("cartId.."+{cartId});
-    try {
-      const response = await fetch(`http://localhost:8081/carts/${cartId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          quantities: ind.quantities
-        })
-      });
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
+    
+    if(!userId){
+      try {
+        const response = await fetch(`http://localhost:8081/guestcarts/${cartId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            quantities: ind.quantities
+          })
+        });
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }else{
+
+        try {
+          const response = await fetch(`http://localhost:8081/carts/${cartId}`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              quantities: ind.quantities
+            })
+          });
+          const data = await response.json();
+          console.log(data);
+        } catch (error) {
+          console.error(error);
+        }
+
     }
+
   };
   
 
