@@ -1,0 +1,47 @@
+
+.welcomeNav{
+    color: white;
+    font-size: x-large;
+}
+.subMenuNav{
+    color: white;
+    font-size: x-large;
+    font-weight: bolder;  
+}
+.loginlogoutNav {
+    margin-left: auto !important;
+  }
+
+  
+.navbar-brand {
+    margin-right: 0;
+  }
+  
+  .navbar-nav {
+    flex-direction: row;
+  }
+  
+  .navbar-nav .nav-link {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+  
+  .navbar-nav .nav-link:not(:last-child) {
+    margin-right: 0.5rem;
+  }
+  
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+  
+  .navbar-logo img {
+    height: 50px;
+  }
+  
+  @media (max-width: 767px) {
+    .navbar-nav .nav-link:not(:last-child) {
+      margin-right: 0;
+    }
+  }

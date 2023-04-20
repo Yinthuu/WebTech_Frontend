@@ -43,8 +43,7 @@
     letter-spacing: 2px;
     border: none;
     outline: none;
-    color: white;
-    background-color: skyblue;
+    background-color: #f0c14b;
     border-radius: 5px;
     cursor: pointer;
   }
@@ -83,8 +82,7 @@
     letter-spacing: 2px;
     border: none;
     outline: none;
-    color: white;
-    background-color: skyblue;
+    background-color: #f0c14b;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;;

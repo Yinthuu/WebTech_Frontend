@@ -5,6 +5,7 @@ import GiveCommentCard from './GiveCommentCard';
 function GiveComment({product}) {
   return (
     <Container>
+      <br></br>
       <h3>Give Review</h3>
     <GiveCommentCard product={product} />
     </Container>

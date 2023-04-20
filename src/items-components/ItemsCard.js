@@ -46,21 +46,25 @@ const ItemCards = ({ item, handleClick }) => {
 }
 
   return (
+    <div>
     <div className="cards">
+    <Link to={`/comment/view/${_id}`}>
       <div className="image_box">
         <img src={image} alt={title} />
       </div>
+    </Link>
+    </div>
       <div className="details">
         <p>{title}</p>
         <p>{description}</p>
         <p>Price - {pricing}$</p>
-        <Link to={`/comment/view/${_id}`}>
-          <a>View Ratings</a>
-        </Link>
-        <br />
         <button onClick={() => { handleClick(item); handleAddToCart(); }}>Add to Cart</button>
+        <br />
+        <Link className="plainLink" to={`/comment/view/${_id}`}>
+          <a className="plainLink" >Details</a>
+        </Link>
       </div>
-    </div>
+      </div>
   );
 };
 

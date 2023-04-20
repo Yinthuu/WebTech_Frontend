@@ -3,6 +3,8 @@ import Container from 'react-bootstrap/Container';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import SSLogo from '../logo/logo_2-removebg.png';
+import '../styles/navbarstyle.css'
 
 function NavbarMenu() {
   const location = useLocation();
@@ -22,10 +24,17 @@ function NavbarMenu() {
 
   
   return (
-    <Navbar bg="primary" variant="dark">
+    <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="/">Stop Shop</Navbar.Brand>
-        <Nav className="me-auto">
+      <Navbar.Brand href="/" className="mr-auto">
+        <img
+            alt="StopShop logo"
+            src={SSLogo}
+            height="100px"
+            className="d-inline-block align-top me-2"
+          />
+        </Navbar.Brand>
+        <Nav className="me-auto subMenuNav">
           <Nav.Link href="/order">Order</Nav.Link>
           {username ? (
             <Nav.Link href="/account">Account</Nav.Link>
@@ -34,7 +43,7 @@ function NavbarMenu() {
           )}
         </Nav>
 
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="justify-content-end welcomeNav">
           {username ? (
             <>
               <span className="me-2">Welcome, {username}</span>

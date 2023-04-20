@@ -87,9 +87,6 @@ const handleSubmit = async () => {
   setProductId(product);
   setUserId(user);
 
-  console.log("product" +product);
-  console.log("user" +user);
-
   const commentData = {
     product: product,
     user: user,
@@ -97,12 +94,6 @@ const handleSubmit = async () => {
     text: feedback,
     images: [],
   };
-
-  console.log("commentData.product " +commentData.product);
-  console.log("commentData.user " +commentData.user);
-  console.log("commentData.rating " +commentData.rating);
-  console.log("commentData.text " +commentData.text);
-  console.log("commentData " +commentData);
 
   //upload images
   const formData = new FormData();
@@ -181,8 +172,8 @@ const handleSubmit = async () => {
 
       <br></br>
 
-      {selectedImages.length > 0 && (selectedImages.length > 2 ? (
-        <p className="error">You can't upload more than 2 images! <br/></p>
+      {selectedImages.length > 0 && (selectedImages.length > 1 ? (
+        <p className="error"> <br/></p>
       ) : (
         ""
         ))
@@ -193,7 +184,7 @@ const handleSubmit = async () => {
               selectedImages.map((image, index) => {
                 return (
                   <div key={image} className="image" >
-                      <img src={image} height="200" width="250" alt="upload"></img>
+                      <img src={image} height="250" width="200" alt="upload"></img>
                       <button onClick={() => setSelectedImages(selectedImages.filter((e) => e !== image))}>Delete</button>
                   </div>
                 )
@@ -205,10 +196,6 @@ const handleSubmit = async () => {
         
       
          <h5>Add a written review</h5>
-        {/*<textarea
-          placeholder="What did you like or dislike? What did you use thus product for?"
-          style={styles.textarea}
-        /> */}
         <textarea
         id="feedback"
         placeholder="What did you like or dislike? What did you use this product for?"
@@ -218,12 +205,10 @@ const handleSubmit = async () => {
       />
 
       
-        <div style={styles.buttonContainer}>
-          <button style={styles.button} onClick={handleSubmit}>Submit</button>
+        <div >
+          <button className="submitButton"  onClick={handleSubmit}>Submit</button>
         </div>
-      
-        <hr></hr>
-      
+
         
       </div>
       
